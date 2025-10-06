@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
+  --background: #ffffff;
+  --foreground: #000000;
 }
 
 @theme inline {
@@ -12,10 +12,10 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
   :root {
-    --background: #ffffff;
-    --foreground: #000000;
+    --background: #000000;
+    --foreground: #ffffff;
   }
 }
 
@@ -23,4 +23,68 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.login {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  gap: 100px;
+}
+
+.login form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 300px;
+  gap: 30px;
+}
+
+.login button {
+  border: 2px solid var(--foreground); 
+  background: transparent;
+  height: 40px;
+  width: 200px;
+}
+
+.login input {
+  height: 30px;
+  width: 200px;
+  border: 1px solid var(--foreground);
+  background: transparent;
+  color: var(--foreground);
+  padding: 5px;
+}
+
+.register {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  gap: 100px;
+}
+
+.register form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 300px;
+  gap: 30px;
+}
+
+.register button {
+  border: 2px solid var(--foreground); 
+  background: transparent;
+  height: 40px;
+  width: 200px;
+}
+
+.register input {
+  height: 30px;
+  width: 200px;
+  border: 1px solid var(--foreground);
+  background: transparent;
+  color: var(--foreground);
+  padding: 5px;
 }

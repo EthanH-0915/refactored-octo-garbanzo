@@ -1,12 +1,86 @@
-import Link from 'next/link'
+"use client";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
-export default function Home() {
+const LoginPage: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState<string | null>(null);
+  const [status, setStatus] = useState<"success" | "error" | null>(null);
+
+  const router = useRouter();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    // Example login flow - replace with real API call
+    try {
+      // const res = await fetch('/api/login', { method: 'POST', body: JSON.stringify({ email, password }) });
+      // if (!res.ok) throw new Error('Login failed');
+      setMessage("Login successful. Redirecting...");
+      setStatus("success");
+      // redirect to dashboard
+      router.push("/dashboard");
+    } catch (err) {
+      setMessage("Login failed.");
+      setStatus("error");
+    }
+  };
+
+  const handleRegister = () => {
+    try {
+      // const res = await fetch('/api/login', { method: 'POST', body: JSON.stringify({ email, password }) });
+      // if (!res.ok) throw new Error('Login failed');
+      setStatus("success");
+      // redirect to dashboard
+      router.push("/signup");
+    } catch (err) {
+      setStatus("error");
+    }
+  };
+
   return (
-    <div>
-      <h1>hi</h1>
-      <Link href="/signup">
-        <button type="button">Go to hi2</button>
-      </Link>
+    <div className="login">
+      <h1 className="login__title">Welcome!</h1>
+      <form className="login__form" onSubmit={handleLogin}>
+        <div>
+          <p>Email</p>
+          <input
+            type="email"
+            id="email"
+            className="login__input"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <p>Password</p>
+          <input
+            type="password"
+            id="password"
+            className="login__input"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <button type="submit" className="login__button">Log in</button>
+        </div>
+        <div>
+          <button type="button" onClick={handleRegister} className="login__button">Register</button>
+        </div>
+        {message && (
+          <p
+            className="login__message"
+            style={{ color: status === "success" ? "green" : "red", marginTop: "10px", fontSize: "20px" }}
+          >
+            {message}
+          </p>
+        )}
+      </form>
     </div>
   );
-}
+};
+
+export default LoginPage;
