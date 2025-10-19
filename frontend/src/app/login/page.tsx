@@ -16,10 +16,20 @@ const LoginPage: React.FC = () => {
     try {
       // const res = await fetch('/api/login', { method: 'POST', body: JSON.stringify({ email, password }) });
       // if (!res.ok) throw new Error('Login failed');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include", // IMPORTANT — send/receive cookies
+        body: JSON.stringify({ email, password }),
+      });
       setMessage("Login successful. Redirecting...");
       setStatus("success");
       // redirect to dashboard
-      router.push("/dashboard");
+      if (res.ok) {
+        router.push("/dashboard");
+      } else {
+        alert("Invalid username or password.")
+      }
     } catch (err) {
       setMessage("Login failed.");
       setStatus("error");

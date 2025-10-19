@@ -7,6 +7,14 @@
     "frontend": "npm run dev --prefix frontend"
   },
   "devDependencies": {
+    "@types/passport-jwt": "^4.0.1",
     "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "@nestjs/jwt": "^11.0.0",
+    "@nestjs/passport": "^11.0.5",
+    "@types/jsonwebtoken": "^9.0.10",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1"
   }
 }
