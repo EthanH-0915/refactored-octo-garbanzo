@@ -2,6 +2,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+console.log("[middleware] module loaded"); // <- shows file was imported by the Next server
+
 export function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value; // assumes JWT is in cookies
   const url = req.nextUrl.clone();
@@ -23,5 +25,6 @@ export function middleware(req: NextRequest) {
 
 // Apply to certain routes
 export const config = {
-  matcher: ["/dashboard/:path*", "/files/:path*"],
+  matcher: ["/dashboard/:path*", "/files/:path*", "/login", "/signup"],
 };
+
