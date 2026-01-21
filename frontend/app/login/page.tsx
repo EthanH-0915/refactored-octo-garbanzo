@@ -14,8 +14,6 @@ const LoginPage: React.FC = () => {
     e.preventDefault();
     // Example login flow - replace with real API call
     try {
-      // const res = await fetch('/api/login', { method: 'POST', body: JSON.stringify({ email, password }) });
-      // if (!res.ok) throw new Error('Login failed');
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -38,10 +36,7 @@ const LoginPage: React.FC = () => {
 
   const handleRegister = () => {
     try {
-      // const res = await fetch('/api/login', { method: 'POST', body: JSON.stringify({ email, password }) });
-      // if (!res.ok) throw new Error('Login failed');
       setStatus("success");
-      // redirect to dashboard
       router.push("/signup");
     } catch (err) {
       setStatus("error");
