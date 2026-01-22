@@ -1,61 +1,18 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #000000;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html {
+  scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --background: #000000;
-    --foreground: #ffffff;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.login {
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  gap: 100px;
-}
-
-.login form {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 300px;
-  gap: 30px;
-}
-
-.login button {
-  border: 2px solid var(--foreground); 
-  background: transparent;
-  height: 40px;
-  width: 200px;
-}
-
-.login input {
-  height: 30px;
-  width: 200px;
-  border: 1px solid var(--foreground);
-  background: transparent;
-  color: var(--foreground);
-  padding: 5px;
-}
 
 .register {
   flex-direction: column;
@@ -74,7 +31,7 @@ body {
 }
 
 .register button {
-  border: 2px solid var(--foreground); 
+  border: 2px solid black; 
   background: transparent;
   height: 40px;
   width: 200px;
@@ -83,8 +40,8 @@ body {
 .register input {
   height: 30px;
   width: 200px;
-  border: 1px solid var(--foreground);
+  border: 1px solid black;
   background: transparent;
-  color: var(--foreground);
+  color: black;
   padding: 5px;
 }

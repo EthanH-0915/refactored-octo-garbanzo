@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState<string | null>(null);
-  const [status, setStatus] = useState<"success" | "error" | null>(null);
 
   const router = useRouter();
 
@@ -20,70 +20,70 @@ const LoginPage: React.FC = () => {
         credentials: "include", // IMPORTANT — send/receive cookies
         body: JSON.stringify({ email, password }),
       });
-      setMessage("Login successful. Redirecting...");
-      setStatus("success");
       // redirect to dashboard
       if (res.ok) {
         router.push("/dashboard");
       } else {
-        alert("Invalid username or password.")
+        setMessage("Invalid username or password.");
+        alert(message);
       }
     } catch (err) {
       setMessage("Login failed.");
-      setStatus("error");
     }
   };
 
   const handleRegister = () => {
     try {
-      setStatus("success");
       router.push("/signup");
     } catch (err) {
-      setStatus("error");
     }
   };
 
   return (
-    <div className="login">
-      <h1 className="login__title">Welcome!</h1>
-      <form className="login__form" onSubmit={handleLogin}>
-        <div>
-          <p>Email</p>
-          <input
-            type="email"
-            id="email"
-            className="login__input"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <p>Password</p>
-          <input
-            type="password"
-            id="password"
-            className="login__input"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <button type="submit" className="login__button">Log in</button>
-        </div>
-        <div>
-          <button type="button" onClick={handleRegister} className="login__button">Register</button>
-        </div>
-        {message && (
-          <p
-            className="login__message"
-            style={{ color: status === "success" ? "green" : "red", marginTop: "10px", fontSize: "20px" }}
+    <div className="min-h-screen flex items-center flex-col justify-center bg-gray-100 px-4 gap-20">
+      <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Sign in to your account</h2>
+      <div className=" w-full max-w-md bg-gray-200 rounded-2xl shadow-lg p-8">
+        <form className="space-y-5 flex flex-col items-center" onSubmit={handleLogin}>
+          <div>
+            <label className="flex flex-col justify-center items-center block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input
+              id="email"
+              type="email"
+              placeholder="you@example.com"
+              className="w-80 h-[40px] border border-gray-300 rounded-xl focus:ring-1 focus:ring-blue-500 focus:outline-none"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <input
+              id="password"
+              type="password"
+              placeholder="••••••••"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <div className="flex items-center justify-between">
+            <a href="#" className="text-sm text-blue-600 hover:underline">Forgot password?</a>
+          </div>
+
+          <button
+            type="submit"
+            onClick={handleLogin}
+            className="w-full py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-200"
           >
-            {message}
-          </p>
-        )}
-      </form>
+            Sign in
+          </button>
+        </form>
+
+        <p className="text-center text-sm text-gray-600 mt-6">
+          Don’t have an account?
+          <Link href="/signup" className="text-blue-600 hover:underline font-medium">Sign up</Link>
+        </p>
+      </div>
     </div>
   );
 };
