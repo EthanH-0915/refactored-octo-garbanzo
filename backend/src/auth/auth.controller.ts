@@ -1,10 +1,20 @@
 import { Controller, Post, Res, Body } from '@nestjs/common';
 import type { Response } from 'express';
 import { AuthService } from './auth.service';
+import { UsersService } from '../users/users.service';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
+
+  @Post()
+  async createUser(
+    @Body('email') email: string,
+    @Body('password') password: string,
+  ) {
+    console.log('Registering user with email:', email);
+    return this.authService.registerUser(email, password);
+  }
 
   @Post('login')
   async login(@Body() body: any, @Res({ passthrough: true }) res: Response) {

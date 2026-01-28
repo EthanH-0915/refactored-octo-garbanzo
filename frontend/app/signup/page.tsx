@@ -13,13 +13,21 @@ const SignupPage: React.FC = () => {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Example login flow - replace with real API call
-    try {
-      // const res = await fetch('/api/login', { method: 'POST', body: JSON.stringify({ email, password }) });
-      // if (!res.ok) throw new Error('Login failed');
-      if (password !== confirmPassword) {
+    if (password !== confirmPassword) {
         throw new Error('Passwords do not match');
+    }
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || 'Registration failed');
       }
+      // if (!res.ok) throw new Error('Login failed');
+      
       setMessage("Register successful. Redirecting...");
       setStatus("success");
       // redirect to login (or dashboard) after success
