@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const SignupPage: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -49,57 +50,61 @@ const SignupPage: React.FC = () => {
   };
 
   return (
-    <div className="register">
-  <h1 className="register__title">Register</h1>
-      <form className="register__form" onSubmit={handleRegister}>
-        <div>
-          <p>Email</p>
-          <input
-            type="email"
-            id="email"
-            className="register__input"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <p>Password</p>
-          <input
-            type="password"
-            id="password"
-            className="register__input"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <p>Confirm Password</p>
-          <input
-            type="password"
-            id="confirmPassword"
-            className="register__input"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <button type="submit" className="register__button">Register</button>
-        </div>
-        <div>
-          <button type="button" onClick={handleBack} className="register__button">Back</button>
-        </div>
-        {message && (
-          <p
-            className="register__message"
-            style={{ color: status === "success" ? "green" : "red", marginTop: "10px", fontSize: "20px" }}
+    <div className="min-h-screen flex items-center flex-col justify-center bg-gray-100 px-4 gap-20">
+      <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Sign in to your account</h2>
+      <div className=" w-full max-w-md bg-gray-200 rounded-2xl shadow-lg p-8">
+        <form className="space-y-5 flex flex-col items-center" onSubmit={handleRegister}>
+          <div>
+            <label className="flex flex-col justify-center items-center block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input
+              id="email"
+              type="email"
+              placeholder="you@example.com"
+              className="w-80 h-[40px] border border-gray-300 rounded-xl focus:ring-1 focus:ring-blue-500 focus:outline-none"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <input
+              id="password"
+              type="password"
+              placeholder="••••••••"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <input
+              id="confirmPassword"
+              type="password"
+              placeholder="••••••••"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
+
+          <div className="flex items-center justify-between">
+            <a href="#" className="text-sm text-blue-600 hover:underline">Forgot password?</a>
+          </div>
+
+          <button
+            type="submit"
+            onClick={handleRegister}
+            className="w-full py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-200"
           >
-            {message}
-          </p>
-        )}
-      </form>
+            Sign Up
+          </button>
+        </form>
+
+        <p className="text-center text-sm text-gray-600 mt-6">
+          Already Have an Account?
+          <Link href="/login" className="text-blue-600 hover:underline font-medium">Sign up</Link>
+        </p>
+      </div>
     </div>
   );
 };
