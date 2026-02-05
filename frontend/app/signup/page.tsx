@@ -14,10 +14,11 @@ const SignupPage: React.FC = () => {
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-        throw new Error('Passwords do not match');
-    }
+
     try {
+      if (password !== confirmPassword) {
+        throw new Error('Passwords do not match');
+      }
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -35,6 +36,7 @@ const SignupPage: React.FC = () => {
       router.push("/login");
     } catch (err) {
       setMessage(err instanceof Error ? ` ${err.message}` : "");
+      alert(message);
       setStatus("error");
     }
   };

@@ -3,45 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
 html {
   scroll-behavior: smooth;
-}
-
-
-.register {
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  gap: 100px;
-}
-
-.register form {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 300px;
-  gap: 30px;
-}
-
-.register button {
-  border: 2px solid black; 
-  background: transparent;
-  height: 40px;
-  width: 200px;
-}
-
-.register input {
-  height: 30px;
-  width: 200px;
-  border: 1px solid black;
-  background: transparent;
-  color: black;
-  padding: 5px;
 }
