@@ -89,10 +89,6 @@ const SignupPage: React.FC = () => {
             />
           </div>
 
-          <div className="flex items-center justify-between">
-            <a href="#" className="text-sm text-blue-600 hover:underline">Forgot password?</a>
-          </div>
-
           <button
             type="submit"
             onClick={handleRegister}
@@ -103,8 +99,8 @@ const SignupPage: React.FC = () => {
         </form>
 
         <p className="text-center text-sm text-gray-600 mt-6">
-          Already Have an Account?
-          <Link href="/login" className="text-blue-600 hover:underline font-medium">Sign up</Link>
+          Already Have an Account? 
+          <Link href="/login" className="text-blue-600 hover:underline font-medium pl-1">Log In</Link>
         </p>
       </div>
     </div>

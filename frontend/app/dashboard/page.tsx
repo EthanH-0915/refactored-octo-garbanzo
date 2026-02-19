@@ -1,15 +1,18 @@
-'use client'
+"use client"
 import Image from "next/image";
 import Link from 'next/link'
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Menu, X, Search, FileText } from 'lucide-react';
+import { useRef } from "react";
+import { FileInput } from "../components/FileInput";
 
 
    
 export default function Home() {
   const [filter, setFilter] = React.useState("");
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
    const router = useRouter();
     const handleLogout = async (e: React.FormEvent) => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
@@ -58,9 +61,11 @@ export default function Home() {
           transition-transform duration-300 ease-in-out
         `}>
           <nav className="p-4 space-y-5">
-              <button className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700">
-                + Upload
-              </button>
+              <FileInput onFileSelect={(file) => console.log('Selected file:', file)}
+                buttonText="Upload File"
+                containerClassName="w-full"
+                buttonClassName="w-full text-left px-4 py-3 rounded-xl bg-blue-600 text-white hover:bg-blue-700 font-medium transition-colors"
+              />
             {['Shared with me', 'Recent', 'Favorites', 'Trash'].map((item) => (
               <button key={item} className="w-full text-left px-4 py-3 rounded-xl text-gray-600 hover:bg-blue-50 hover:text-blue-600 font-medium transition-colors">
                 {item}
