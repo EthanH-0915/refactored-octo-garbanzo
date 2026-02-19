@@ -14,6 +14,24 @@ export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
    const router = useRouter();
+   
+    const handleFileSelect = async (file: File) => {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        console.log("File uploaded successfully");
+      } else {
+        console.error("File upload failed");
+      }
+    };
+
+
     const handleLogout = async (e: React.FormEvent) => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
       method: "POST",
@@ -61,7 +79,7 @@ export default function Home() {
           transition-transform duration-300 ease-in-out
         `}>
           <nav className="p-4 space-y-5">
-              <FileInput onFileSelect={(file) => console.log('Selected file:', file)}
+              <FileInput onFileSelect={file => handleFileSelect(file)}
                 buttonText="Upload File"
                 containerClassName="w-full"
                 buttonClassName="w-full text-left px-4 py-3 rounded-xl bg-blue-600 text-white hover:bg-blue-700 font-medium transition-colors"
