@@ -2,19 +2,29 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-console.log("[middleware] module loaded"); // <- shows file was imported by the Next server
+const PROTECTED_ROUTES = ["/dashboard", "/files"];
 
-export function middleware(req: NextRequest) {
-  const token = req.cookies.get("token")?.value; // assumes JWT is in cookies
+// Asks the backend to verify the JWT (signature + expiry), rather than
+// trusting that a "token" cookie merely being present means it's valid.
+async function isAuthenticated(req: NextRequest): Promise<boolean> {
+  const token = req.cookies.get("token")?.value;
+  if (!token) return false;
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
+      headers: { cookie: `token=${token}` },
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
+export async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
-  console.log("[middleware] checking auth for:", url.pathname, "token:", !!token);
 
-  // Protect these routes
-  const protectedRoutes = ["/dashboard", "/files"];
-
-  if (protectedRoutes.some((route) => url.pathname.startsWith(route))) {
-    console.log("Checking auth for protected route:", url.pathname);
-    if (!token) {
+  if (PROTECTED_ROUTES.some((route) => url.pathname.startsWith(route))) {
+    if (!(await isAuthenticated(req))) {
       url.pathname = "/login";
       return NextResponse.redirect(url);
     }

@@ -18,6 +18,13 @@ export class UsersService {
         email,
         passwordHash: password,
       },
+      select: {
+        id: true,
+        email: true,
+        createdAt: true,
+        updatedAt: true,
+        emailVerified: true,
+      },
     });
   }
 
