@@ -52,6 +52,7 @@ const LoginPage: React.FC = () => {
               placeholder="you@example.com"
               className="w-80 h-[40px] border border-gray-300 rounded-xl focus:ring-1 focus:ring-blue-500 focus:outline-none"
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
 
@@ -63,6 +64,7 @@ const LoginPage: React.FC = () => {
               placeholder="••••••••"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
 

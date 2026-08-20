@@ -2,24 +2,23 @@ import { Controller, Post, Get, Res, Req, Body, UseGuards } from '@nestjs/common
 import type { Response, Request } from 'express';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt.guard';
+import { RegisterDto } from './dto/register.dto';
+import { LoginDto } from './dto/login.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post()
-  async createUser(
-    @Body('email') email: string,
-    @Body('password') password: string,
-  ) {
-    console.log('Registering user with email:', email);
-    return this.authService.registerUser(email, password);
+  async createUser(@Body() dto: RegisterDto) {
+    console.log('Registering user with email:', dto.email);
+    return this.authService.registerUser(dto.email, dto.password);
   }
 
   @Post('login')
-  async login(@Body() body: any, @Res({ passthrough: true }) res: Response) {
-    console.log('Login attempt for user:', body.email);
-    const { token } = await this.authService.validateUser(body.email, body.password);
+  async login(@Body() dto: LoginDto, @Res({ passthrough: true }) res: Response) {
+    console.log('Login attempt for user:', dto.email);
+    const { token } = await this.authService.validateUser(dto.email, dto.password);
 
     // Set JWT as cookie
     res.cookie('token', token, {

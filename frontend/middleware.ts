@@ -11,7 +11,12 @@ async function isAuthenticated(req: NextRequest): Promise<boolean> {
   if (!token) return false;
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
+    // INTERNAL_API_URL lets this server-to-server call reach the backend
+    // container directly (e.g. http://backend:3001 under docker-compose),
+    // where NEXT_PUBLIC_API_URL's "localhost" would resolve to this
+    // container instead.
+    const apiUrl = process.env.INTERNAL_API_URL ?? process.env.NEXT_PUBLIC_API_URL;
+    const res = await fetch(`${apiUrl}/auth/me`, {
       headers: { cookie: `token=${token}` },
     });
     return res.ok;
